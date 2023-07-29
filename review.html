@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Product Review Section</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: rgb(63, 94, 251);
+      background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+
+    }
+
+    h1 {
+
+      background: rgb(20, 0, 36);
+      background: linear-gradient(90deg, rgba(20, 0, 36, 0.9950105042016807) 0%, rgba(174, 14, 147, 1) 0%, rgba(7, 6, 116, 1) 63%, rgba(255, 0, 198, 1) 100%);
+      color: rgb(255, 255, 255);
+      border-top-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      width: 500px;
+
+    }
+
+    #head {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+    }
+
+    fieldset {
+      border: 4px solid black;
+      text-align: center;
+    }
+
+    .field {
+      justify-content: center;
+      display: flex;
+
+    }
+
+    #reviews {
+      margin-bottom: 20px;
+    }
+
+    #ratings {
+      margin-bottom: 20px;
+      margin-top: 10px;
+      justify-content: center;
+      display: flex;
+      border-radius: 20px;
+    }
+
+    #rating {
+      border-radius: 20px;
+      width: 100%;
+      padding: 10px;
+    }
+
+
+    #reviewList {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #reviewList li {
+      border: 1px solid #000000;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 300px;
+      height: 100px;
+      margin-left: 460px;
+      justify-content: center;
+
+
+    }
+
+    #reviewList li p {
+      margin: 0;
+    }
+
+    #reviewList li span {
+      font-weight: bold;
+    }
+
+    #reviewForm {
+      max-width: 300px;
+      margin: 0 auto;
+      border: 2px solid black;
+      padding: 10px;
+    }
+
+    #reviewForm.rating {
+      color: #ff9800;
+    }
+
+    #reviewForm input {
+      width: 90%;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      padding: 10px;
+      justify-content: center;
+
+    }
+
+
+    #reviewForm textarea {
+      width: 80%;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      padding: 30px;
+    }
+
+    #reviewForm input[type="submit"] {
+      background-color: #011fff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    #reviewForm input[type="submit"]:hover {
+      background-color: #000000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="head">
+    <h1>Product Review Section</h1>
+  </div>
+
+  <div id="reviews">
+    <h2>Reviews</h2>
+    <ul id="reviewList"></ul>
+  </div>
+  <div class="field">
+    <fieldset>
+      <form id="reviewForm">
+        <h2>Add Review</h2>
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="text" id="product" placeholder="Product Name" required>
+        <div class="cont">
+
+        </div>
+
+        <textarea id="comment" placeholder="Your Review" required></textarea>
+        <div id="ratings">
+          <select id="rating" required>
+            <option value="" disabled selected>Select rating</option>
+            <option value="5">5 stars</option>
+            <option value="4">4 stars</option>
+            <option value="3">3 stars</option>
+            <option value="2">2 stars</option>
+            <option value="1">1 star</option>
+          </select>
+        </div>
+        <input type="submit" value="Submit Review">
+      </form>
+    </fieldset>
+  </div>
+  <script>
+
+
+    // Array to store reviews
+    var reviews = [];
+
+    // Function to add a new review
+    function addReview(event) {
+      event.preventDefault();
+
+      // Get form values
+      var name = document.getElementById("name").value;
+      var product = document.getElementById("product").value;
+      var rating = document.getElementById("rating").value;
+      var comment = document.getElementById("comment").value;
+
+      // Create a new review object
+      var review = {
+        name: name,
+        product: product,
+        rating: rating,
+        comment: comment,
+        approved: false
+      };
+
+      // Add review to the array
+      reviews.push(review);
+
+      // Clear the form
+      document.getElementById("name").value = "";
+      document.getElementById("product").value = "";
+      document.getElementById("rating").value = "";
+      document.getElementById("comment").value = "";
+
+      // Display the review
+      displayReview(review);
+    }
+
+    // Function to display a review
+    function displayReview(review) {
+      var reviewList = document.getElementById("reviewList");
+
+      var li = document.createElement("li");
+
+      var nameElement = document.createElement("p");
+      nameElement.innerHTML = "<span>Name:</span> " + review.name;
+
+      var productElement = document.createElement("p");
+      productElement.innerHTML = "<span>Product:</span> " + review.product;
+
+      var ratingElement = document.createElement("p");
+      ratingElement.innerHTML = "<span>Rating:</span> " + review.rating + ' stars';
+
+      var commentElement = document.createElement("p");
+      commentElement.innerHTML = "<span>Review:</span> " + review.comment;
+
+      li.appendChild(nameElement);
+      li.appendChild(productElement);
+      li.appendChild(ratingElement);
+      li.appendChild(commentElement);
+
+      reviewList.appendChild(li);
+    }
+
+    // Event listener for form submit
+    document.getElementById("reviewForm").addEventListener("submit", addReview);
+
+  </script>
+</body>
+
+</html>
